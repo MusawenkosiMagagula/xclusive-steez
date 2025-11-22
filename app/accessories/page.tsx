@@ -33,66 +33,66 @@ const accessoryCategories = [
 const accessories = [
   {
     id: 31,
-    name: 'SIGNATURE PHONE CASE',
-    category: 'Phone Cases',
-    price: 299.99,
-    image: '/products/signature-phone-case.jpg',
+    name: 'iPHONE 16 PRO MAX - 256GB',
+    category: 'iPhones',
+    price: 25000.00,
+    image: '/products/iPhone-16-Pro-Max-256GB-R25000.JPG',
     isNew: true
   },
   {
     id: 32,
-    name: 'URBAN BACKPACK',
-    category: 'Bags & Backpacks',
-    price: 1299.99,
-    image: '/products/urban-backpack.jpg',
-    isNew: false
+    name: 'iPHONE 16 PRO - 256GB',
+    category: 'iPhones',
+    price: 24000.00,
+    image: '/products/iPhone-16-Pro-256GB-R24000.PNG',
+    isNew: true
   },
   {
     id: 33,
-    name: 'SIGNATURE BEANIE',
-    category: 'Hats & Beanies',
-    price: 399.99,
-    image: '/products/signature-beanie.jpg',
+    name: 'iPHONE 16 - 128GB',
+    category: 'iPhones',
+    price: 17000.00,
+    image: '/products/iPhone-16-128GB-R17000.JPG',
     isNew: true
   },
   {
     id: 34,
-    name: 'MINIMALIST CHAIN',
-    category: 'Jewelry',
-    price: 899.99,
-    image: '/products/minimalist-chain.jpg',
+    name: 'iPHONE 15 PRO MAX - 256GB',
+    category: 'iPhones',
+    price: 20000.00,
+    image: '/products/iPhone-15-Pro-Max-256GB-R20000.JPG',
     isNew: false
   },
   {
     id: 35,
-    name: 'CLEAR PROTECTIVE CASE',
-    category: 'Phone Cases',
-    price: 199.99,
-    image: '/products/clear-protective-case.jpg',
-    isNew: true
+    name: 'iPHONE 15 PRO - 256GB',
+    category: 'iPhones',
+    price: 17500.00,
+    image: '/products/iPhone-15-Pro-256GB-R17500.JPG',
+    isNew: false
   },
   {
     id: 36,
-    name: 'CROSSBODY BAG',
-    category: 'Bags & Backpacks',
-    price: 799.99,
-    image: '/products/crossbody-bag.jpg',
+    name: 'iPHONE 15 - 128GB',
+    category: 'iPhones',
+    price: 15500.00,
+    image: '/products/iPhone-15-128GB-R15500.webp',
     isNew: false
   },
   {
     id: 37,
-    name: 'PREMIUM SNAPBACK',
-    category: 'Hats & Beanies',
-    price: 499.99,
-    image: '/products/premium-snapback.jpg',
-    isNew: true
+    name: 'iPHONE 14 PRO MAX - 256GB',
+    category: 'iPhones',
+    price: 17500.00,
+    image: '/products/iPhone14-Pro-Max-256GB-R17500.JPG',
+    isNew: false
   },
   {
     id: 38,
-    name: 'STATEMENT RING',
-    category: 'Jewelry',
-    price: 649.99,
-    image: '/products/statement-ring.jpg',
+    name: 'iPHONE 13 PRO - 128GB',
+    category: 'iPhones',
+    price: 12500.00,
+    image: '/products/iPhone-13 Pro-128GB-R12500.WEBP',
     isNew: false
   }
 ]

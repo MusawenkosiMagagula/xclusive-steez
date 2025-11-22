@@ -10,6 +10,7 @@ export default function Header() {
   const navigation = [
     { name: 'NEW ARRIVALS', href: '/new-arrivals' },
     { name: 'SNEAKERS', href: '/sneakers' },
+    { name: 'iPHONES', href: '/iphones' },
     { name: 'KIDS SHOES', href: '/kids-shoes' },
     { name: 'ACCESSORIES', href: '/accessories' },
   ]

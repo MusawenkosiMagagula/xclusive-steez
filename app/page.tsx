@@ -6,34 +6,34 @@ import WhatsAppButton from './components/ui/WhatsAppButton'
 const featuredProducts = [
   {
     id: 1,
-    name: 'DECONSTRUCTED HOODIE',
-    category: 'Hoodies',
-    price: 1699.99,
-    image: '/hoodie-1.jpg',
+    name: 'AIR JORDAN 4 RETRO - BLACK CAT',
+    category: 'Sneakers',
+    price: 1700.00,
+    image: '/products/Air Jordan 4 Retro - Black Cat R1700.WEBP',
     isNew: true
   },
   {
     id: 2,
-    name: 'TABI SNEAKERS',
-    category: 'Footwear',
-    price: 2899.99,
-    image: '/sneakers-1.jpg',
+    name: 'NIKE DUNK LOW - BLACK & WHITE',
+    category: 'Sneakers',
+    price: 1500.00,
+    image: '/products/Nike Dunk Low - Black & White R1500.JPG',
     isNew: true
   },
   {
     id: 3,
-    name: 'OVERSIZED T-SHIRT',
-    category: 'T-Shirts',
-    price: 749.99,
-    image: '/tee-1.jpg',
+    name: 'ADIDAS SAMBA OG - BLACK & WHITE',
+    category: 'Sneakers',
+    price: 1500.00,
+    image: '/products/Adidas Samba OG - Black & White R1500.JPG',
     isNew: false
   },
   {
     id: 4,
-    name: 'DEconstructed BLAZER',
-    category: 'Outerwear',
-    price: 3799.99,
-    image: '/jacket-1.jpg',
+    name: 'NIKE AIR FORCE 1 07 PANDA',
+    category: 'Sneakers',
+    price: 1600.00,
+    image: '/products/Nike Air Force 1 07 Panda - Black & White R1600.jpg',
     isNew: true
   }
 ]

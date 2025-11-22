@@ -6,50 +6,98 @@ import WhatsAppButton from '../components/ui/WhatsAppButton'
 const sneakersProducts = [
   {
     id: 1,
-    name: 'TABI SNEAKERS',
-    category: 'Sneakers',
-    price: 2899.99,
-    image: '/products/tabi-sneakers.jpg',
+    name: 'AIR JORDAN 4 RETRO - BLACK CAT',
+    category: 'Jordan',
+    price: 1700.00,
+    image: '/products/Air Jordan 4 Retro - Black Cat R1700.WEBP',
     isNew: true
   },
   {
     id: 2,
-    name: 'CLASSIC HIGH-TOPS',
-    category: 'Sneakers',
-    price: 1999.99,
-    image: '/products/classic-high-tops.jpg',
+    name: 'NIKE DUNK LOW - BLACK & WHITE',
+    category: 'Nike',
+    price: 1500.00,
+    image: '/products/Nike Dunk Low - Black & White R1500.JPG',
     isNew: false
   },
   {
     id: 3,
-    name: 'RETRO RUNNERS',
-    category: 'Sneakers',
-    price: 2499.99,
-    image: '/products/retro-runners.jpg',
+    name: 'ADIDAS SAMBA OG - BLACK & WHITE',
+    category: 'Adidas',
+    price: 1500.00,
+    image: '/products/Adidas Samba OG - Black & White R1500.JPG',
     isNew: true
   },
   {
     id: 4,
-    name: 'STREET WALKERS',
-    category: 'Sneakers',
-    price: 2199.99,
-    image: '/products/street-walkers.jpg',
+    name: 'NEW BALANCE 550 - BLACK & WHITE',
+    category: 'New Balance',
+    price: 1500.00,
+    image: '/products/New Balance 550 - Black & White R1500.JPG',
     isNew: false
   },
   {
     id: 5,
-    name: 'URBAN GLIDERS',
-    category: 'Sneakers',
-    price: 2699.99,
-    image: '/products/urban-gliders.jpg',
+    name: 'AIR JORDAN 4 RETRO - BRED REIMAGINED',
+    category: 'Jordan',
+    price: 1700.00,
+    image: '/products/Air Jordan 4 Retro - Bred Reimagined R1700.JPG',
     isNew: true
   },
   {
     id: 6,
-    name: 'MINIMALIST KICKS',
-    category: 'Sneakers',
-    price: 1799.99,
-    image: '/products/minimalist-kicks.jpg',
+    name: 'NIKE AIR FORCE 1 07 PANDA',
+    category: 'Nike',
+    price: 1600.00,
+    image: '/products/Nike Air Force 1 07 Panda - Black & White R1600.jpg',
+    isNew: false
+  },
+  {
+    id: 7,
+    name: 'ADIDAS GAZELLE BOLD PLATFORM - BLACK',
+    category: 'Adidas',
+    price: 1600.00,
+    image: '/products/Adidas Gazelle Bold Platform - Black Suede R1600.jpg',
+    isNew: true
+  },
+  {
+    id: 8,
+    name: 'NEW BALANCE 9060 - TRIPLE BLACK',
+    category: 'New Balance',
+    price: 1600.00,
+    image: '/products/New Balane 9060 - Triple Black R1600.JPG',
+    isNew: false
+  },
+  {
+    id: 9,
+    name: 'NIKE SHOX TL - WHITE METALLIC SILVER',
+    category: 'Nike',
+    price: 1800.00,
+    image: '/products/Nike Shox TL - White Metalic Siver R1800.JPG',
+    isNew: true
+  },
+  {
+    id: 10,
+    name: 'LACOSTE ELITE ACTIVE - BLACK & WHITE',
+    category: 'Lacoste',
+    price: 1700.00,
+    image: '/products/Lacoste Elite Active - Black & White R1700.WEBP',
+    isNew: false
+  },
+  {
+    id: 11,
+    name: 'AIR JORDAN 1 RETRO HIGH - UNIVERSITY BLUE',
+    category: 'Jordan',
+    price: 1700.00,
+    image: '/products/Air Jordan 1 Retro High  - University Blue R1700.WEBP',
+    isNew: true
+  },
+  {
+    id: 12,
+    name: 'PUMA SUEDE XL - BLACK & WHITE',
+    category: 'Puma',
+    price: 1600.00,
+    image: '/products/Puma Suede XL - Black & White R1600.WEBP',
     isNew: false
   }
 ]

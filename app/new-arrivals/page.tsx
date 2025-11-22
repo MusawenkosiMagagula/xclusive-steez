@@ -6,66 +6,66 @@ import WhatsAppButton from '../components/ui/WhatsAppButton'
 const newArrivals = [
   {
     id: 21,
-    name: 'DECONSTRUCTED HOODIE',
-    category: 'Hoodies',
-    price: 1699.99,
-    image: '/products/deconstructed-hoodie.jpg',
+    name: 'AIR JORDAN 4 RETRO - BLACK CAT',
+    category: 'Sneakers',
+    price: 1700.00,
+    image: '/products/Air Jordan 4 Retro - Black Cat R1700.WEBP',
     isNew: true
   },
   {
     id: 22,
-    name: 'TABI SNEAKERS',
-    category: 'Sneakers',
-    price: 2899.99,
-    image: '/products/tabi-sneakers.jpg',
+    name: 'iPHONE 16 PRO MAX - 256GB',
+    category: 'iPhones',
+    price: 25000.00,
+    image: '/products/iPhone-16-Pro-Max-256GB-R25000.JPG',
     isNew: true
   },
   {
     id: 23,
-    name: 'OVERSIZED T-SHIRT',
-    category: 'T-Shirts',
-    price: 749.99,
-    image: '/products/oversized-tshirt.jpg',
+    name: 'NIKE AIR MAX DN8 - BLACK & RED',
+    category: 'Sneakers',
+    price: 1800.00,
+    image: '/products/Nike Air Max Dn8 - Black&Red R1800.WEBP',
     isNew: true
   },
   {
     id: 24,
-    name: 'DECONSTRUCTED BLAZER',
-    category: 'Outerwear',
-    price: 3799.99,
-    image: '/products/deconstructed-blazer.jpg',
+    name: 'ADIDAS GAZELLE BAD BUNNY - CABO ROJO',
+    category: 'Sneakers',
+    price: 1600.00,
+    image: '/products/Adidas Gazelle Bad Bunny - Cabo Rojo R1600.WEBP',
     isNew: true
   },
   {
     id: 25,
-    name: 'FUTURE TECH JACKET',
-    category: 'Outerwear',
-    price: 2999.99,
-    image: '/products/future-tech-jacket.jpg',
+    name: 'NIKE SHOX TL SKEPTA - BLACK & RED',
+    category: 'Sneakers',
+    price: 1800.00,
+    image: '/products/Nike Shox TL Skepta - Black&Red R1800.WEBP',
     isNew: true
   },
   {
     id: 26,
-    name: 'MINIMAL CARGO PANTS',
-    category: 'Bottoms',
-    price: 1499.99,
-    image: '/products/minimal-cargo-pants.jpg',
+    name: 'NEW BALANCE 9060 - CHROME BLUE',
+    category: 'Sneakers',
+    price: 1600.00,
+    image: '/products/New Balane 9060 - Chrome Blue R1600.WEBP',
     isNew: true
   },
   {
     id: 27,
-    name: 'SIGNATURE BEANIE',
-    category: 'Accessories',
-    price: 399.99,
-    image: '/products/signature-beanie.jpg',
+    name: 'NIKE SB DUNK - JARRITOS',
+    category: 'Sneakers',
+    price: 1700.00,
+    image: '/products/Nike SB Dunk - Jarritos R1700.WEBP',
     isNew: true
   },
   {
     id: 28,
-    name: 'URBAN BACKPACK',
-    category: 'Accessories',
-    price: 1299.99,
-    image: '/products/urban-backpack.jpg',
+    name: 'AIR JORDAN 4 RETRO - PINK THUNDER',
+    category: 'Sneakers',
+    price: 1700.00,
+    image: '/products/Air Jordan 4 Retro - Pink Thunder R1700.WEBP',
     isNew: true
   }
 ]
