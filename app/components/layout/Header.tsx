@@ -1,21 +1,21 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import { useCart } from '../../contexts/CartContext'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { toggleCart, getTotalItems } = useCart()
 
   const navigation = [
     { name: 'NEW ARRIVALS', href: '/new-arrivals' },
-    { name: 'COLLECTIONS', href: '/collections' },
-    { name: 'READY-TO-WEAR', href: '/ready-to-wear' },
-    { name: 'FOOTWEAR', href: '/footwear' },
+    { name: 'SNEAKERS', href: '/sneakers' },
+    { name: 'KIDS SHOES', href: '/kids-shoes' },
     { name: 'ACCESSORIES', href: '/accessories' },
-    { name: 'IPHONES', href: '/iphones' },
   ]
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo - Clean & Simple */}
@@ -47,10 +47,18 @@ export default function Header() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
-            <button className="text-gray-600 hover:text-black transition-colors">
+            <button 
+              onClick={toggleCart}
+              className="text-gray-600 hover:text-black transition-colors relative"
+            >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 10H6L5 9z" />
               </svg>
+              {getTotalItems() > 0 && (
+                <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {getTotalItems()}
+                </span>
+              )}
             </button>
             
             {/* Mobile Menu Button */}

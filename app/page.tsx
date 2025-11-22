@@ -1,6 +1,6 @@
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
-import ProductCard from './components/product/ProductCard'
+import ProductCard from './components/product/ProductionCard'
 import WhatsAppButton from './components/ui/WhatsAppButton'
 
 const featuredProducts = [

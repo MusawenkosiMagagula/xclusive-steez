@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import Image from 'next/image'
+import { useCart } from '../../contexts/CartContext'
 
 interface Product {
   id: number
@@ -14,12 +16,32 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const { addItem, openCart } = useCart()
+  
+  const handleAddToCart = () => {
+    addItem(product)
+    openCart()
+  }
+  
   return (
     <div className="group relative bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
       <div className="aspect-square w-full overflow-hidden rounded-t-lg bg-gray-200">
-        <div className="h-full w-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center">
-          <span className="text-gray-600 text-sm">Product Image</span>
-        </div>
+        <Image
+          src={product.image}
+          alt={product.name}
+          width={400}
+          height={400}
+          className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.style.display = 'none';
+            target.parentElement!.innerHTML = `
+              <div class="h-full w-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center">
+                <span class="text-gray-600 text-sm">Product Image</span>
+              </div>
+            `;
+          }}
+        />
       </div>
       
       <div className="p-4">
@@ -33,6 +55,14 @@ export default function ProductCard({ product }: ProductCardProps) {
             </span>
           )}
         </div>
+        
+        {/* Add to Cart Button */}
+        <button
+          onClick={handleAddToCart}
+          className="mt-3 w-full bg-black text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-gray-800 transition-colors"
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   )
