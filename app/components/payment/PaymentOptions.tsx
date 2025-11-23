@@ -5,7 +5,6 @@ interface PaymentMethod {
   id: string
   name: string
   description: string
-  icon: string
   processing_time: string
   fee: string
 }
@@ -32,7 +31,6 @@ export default function PaymentOptions({ total, onPaymentSelect, onClose }: Paym
       id: 'payfast',
       name: 'PayFast',
       description: 'Secure online payment with credit/debit cards',
-      icon: '💳',
       processing_time: 'Instant',
       fee: 'R5.75 + 3.4%'
     },
@@ -40,7 +38,6 @@ export default function PaymentOptions({ total, onPaymentSelect, onClose }: Paym
       id: 'eft',
       name: 'Bank Transfer (EFT)',
       description: 'Direct bank transfer',
-      icon: '🏦',
       processing_time: '1-2 business days',
       fee: 'Free'
     },
@@ -48,7 +45,6 @@ export default function PaymentOptions({ total, onPaymentSelect, onClose }: Paym
       id: 'cod',
       name: 'Cash on Delivery',
       description: 'Pay when you receive your order',
-      icon: '💰',
       processing_time: 'Pay on delivery',
       fee: 'R50 handling fee'
     }
@@ -181,7 +177,6 @@ export default function PaymentOptions({ total, onPaymentSelect, onClose }: Paym
                   >
                     <div className="flex-1">
                       <div className="flex items-center">
-                        <span className="text-2xl mr-3">{method.icon}</span>
                         <div>
                           <div className="font-medium text-gray-900">{method.name}</div>
                           <div className="text-sm text-gray-500">{method.description}</div>

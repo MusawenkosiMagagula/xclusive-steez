@@ -41,7 +41,7 @@ export default function CartSidebar() {
         `• ${item.name} - Qty: ${item.quantity} - R${(item.price * item.quantity).toFixed(2)}`
       ).join('\n')
       
-      const message = `🏦 EFT ORDER REQUEST\n\nCustomer: ${details.customer.name}\nPhone: ${details.customer.phone}\nEmail: ${details.customer.email}\nAddress: ${details.customer.address}, ${details.customer.city}\n\nORDER DETAILS:\n${cartSummary}\n\nTOTAL: R${details.total.toFixed(2)}\n\nPAYMENT METHOD: Bank Transfer (EFT)\n\nBank Details:\nStandard Bank\nAccount: Xclusive Steez\nAcc No: 1234567890\nBranch: 051001\nReference: ${details.customer.phone}\n\nPlease transfer the amount and send proof of payment.`
+      const message = `EFT ORDER REQUEST\n\nCustomer: ${details.customer.name}\nPhone: ${details.customer.phone}\nEmail: ${details.customer.email}\nAddress: ${details.customer.address}, ${details.customer.city}\n\nORDER DETAILS:\n${cartSummary}\n\nTOTAL: R${details.total.toFixed(2)}\n\nPAYMENT METHOD: Bank Transfer (EFT)\n\nBank Details:\nStandard Bank\nAccount: Xclusive Steez\nAcc No: 1234567890\nBranch: 051001\nReference: ${details.customer.phone}\n\nPlease transfer the amount and send proof of payment.`
       
       const whatsappUrl = `https://wa.me/27725789343?text=${encodeURIComponent(message)}`
       window.open(whatsappUrl, '_blank')
@@ -53,7 +53,7 @@ export default function CartSidebar() {
         `• ${item.name} - Qty: ${item.quantity} - R${(item.price * item.quantity).toFixed(2)}`
       ).join('\n')
       
-      const message = `💰 CASH ON DELIVERY ORDER\n\nCustomer: ${details.customer.name}\nPhone: ${details.customer.phone}\nEmail: ${details.customer.email}\nAddress: ${details.customer.address}, ${details.customer.city}\n\nORDER DETAILS:\n${cartSummary}\n\nSUBTOTAL: R${details.originalTotal.toFixed(2)}\nCOD Fee: R50.00\nTOTAL: R${details.total.toFixed(2)}\n\nPAYMENT METHOD: Cash on Delivery\n\nPlease confirm availability and delivery schedule.`
+      const message = `CASH ON DELIVERY ORDER\n\nCustomer: ${details.customer.name}\nPhone: ${details.customer.phone}\nEmail: ${details.customer.email}\nAddress: ${details.customer.address}, ${details.customer.city}\n\nORDER DETAILS:\n${cartSummary}\n\nSUBTOTAL: R${details.originalTotal.toFixed(2)}\nCOD Fee: R50.00\nTOTAL: R${details.total.toFixed(2)}\n\nPAYMENT METHOD: Cash on Delivery\n\nPlease confirm availability and delivery schedule.`
       
       const whatsappUrl = `https://wa.me/27725789343?text=${encodeURIComponent(message)}`
       window.open(whatsappUrl, '_blank')
@@ -93,7 +93,7 @@ export default function CartSidebar() {
         <div className="flex-1 overflow-y-auto">
           {state.items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full p-6">
-              <div className="text-6xl mb-4">🛒</div>
+              <svg className="w-24 h-24 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
               <h3 className="text-lg font-medium text-gray-900 mb-2">Your cart is empty</h3>
               <p className="text-gray-500 text-center">Add some exclusive items to get started!</p>
             </div>

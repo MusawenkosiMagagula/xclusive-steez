@@ -124,7 +124,7 @@ export default function KidsShoesPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <div className="bg-white rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">📏 How to Measure</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">How to Measure</h3>
               <ol className="list-decimal list-inside space-y-2 text-gray-700">
                 <li>Place a piece of paper on the floor against a wall</li>
                 <li>Have your child stand on the paper with heel against wall</li>
@@ -135,7 +135,7 @@ export default function KidsShoesPage() {
             </div>
             
             <div className="bg-white rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">💡 Pro Tips</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Pro Tips</h3>
               <ul className="list-disc list-inside space-y-2 text-gray-700">
                 <li>Measure feet in the afternoon when they're largest</li>
                 <li>Measure both feet (they can be different sizes)</li>
