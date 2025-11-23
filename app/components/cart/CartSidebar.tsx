@@ -1,6 +1,9 @@
 'use client'
 import { useCart } from '../../contexts/CartContext'
 import Image from 'next/image'
+import { useState } from 'react'
+import PaymentOptions from '../payment/PaymentOptions'
+import PayFastPayment from '../payment/PayFastPayment'
 
 interface CartItem {
   id: number
@@ -13,6 +16,51 @@ interface CartItem {
 
 export default function CartSidebar() {
   const { state, removeItem, updateQuantity, closeCart, getTotalItems, getTotalPrice } = useCart()
+  const [showPaymentOptions, setShowPaymentOptions] = useState(false)
+  const [showPayFast, setShowPayFast] = useState(false)
+  const [orderDetails, setOrderDetails] = useState<any>(null)
+
+  const handleProceedToCheckout = () => {
+    if (state.items.length === 0) return
+    setShowPaymentOptions(true)
+  }
+
+  const handlePaymentSelect = (method: string, details: any) => {
+    setOrderDetails({
+      ...details,
+      items: state.items,
+      method
+    })
+
+    if (method === 'payfast') {
+      setShowPaymentOptions(false)
+      setShowPayFast(true)
+    } else if (method === 'eft') {
+      // Create EFT order message for WhatsApp
+      const cartSummary = state.items.map(item => 
+        `• ${item.name} - Qty: ${item.quantity} - R${(item.price * item.quantity).toFixed(2)}`
+      ).join('\n')
+      
+      const message = `🏦 EFT ORDER REQUEST\n\nCustomer: ${details.customer.name}\nPhone: ${details.customer.phone}\nEmail: ${details.customer.email}\nAddress: ${details.customer.address}, ${details.customer.city}\n\nORDER DETAILS:\n${cartSummary}\n\nTOTAL: R${details.total.toFixed(2)}\n\nPAYMENT METHOD: Bank Transfer (EFT)\n\nBank Details:\nStandard Bank\nAccount: Xclusive Steez\nAcc No: 1234567890\nBranch: 051001\nReference: ${details.customer.phone}\n\nPlease transfer the amount and send proof of payment.`
+      
+      const whatsappUrl = `https://wa.me/27725789343?text=${encodeURIComponent(message)}`
+      window.open(whatsappUrl, '_blank')
+      
+      setShowPaymentOptions(false)
+    } else if (method === 'cod') {
+      // Create COD order message for WhatsApp
+      const cartSummary = state.items.map(item => 
+        `• ${item.name} - Qty: ${item.quantity} - R${(item.price * item.quantity).toFixed(2)}`
+      ).join('\n')
+      
+      const message = `💰 CASH ON DELIVERY ORDER\n\nCustomer: ${details.customer.name}\nPhone: ${details.customer.phone}\nEmail: ${details.customer.email}\nAddress: ${details.customer.address}, ${details.customer.city}\n\nORDER DETAILS:\n${cartSummary}\n\nSUBTOTAL: R${details.originalTotal.toFixed(2)}\nCOD Fee: R50.00\nTOTAL: R${details.total.toFixed(2)}\n\nPAYMENT METHOD: Cash on Delivery\n\nPlease confirm availability and delivery schedule.`
+      
+      const whatsappUrl = `https://wa.me/27725789343?text=${encodeURIComponent(message)}`
+      window.open(whatsappUrl, '_blank')
+      
+      setShowPaymentOptions(false)
+    }
+  }
 
   if (!state.isOpen) return null
 
@@ -121,8 +169,11 @@ export default function CartSidebar() {
               <span>Total: R {getTotalPrice().toFixed(2)}</span>
             </div>
             
-            <button className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
-              Checkout
+            <button 
+              onClick={handleProceedToCheckout}
+              className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors"
+            >
+              Proceed to Checkout
             </button>
             
             <button 
@@ -134,6 +185,31 @@ export default function CartSidebar() {
           </div>
         )}
       </div>
+
+      {/* Payment Options Modal */}
+      {showPaymentOptions && (
+        <PaymentOptions
+          total={getTotalPrice()}
+          onPaymentSelect={handlePaymentSelect}
+          onClose={() => setShowPaymentOptions(false)}
+        />
+      )}
+
+      {/* PayFast Payment Modal */}
+      {showPayFast && orderDetails && (
+        <PayFastPayment
+          orderDetails={orderDetails}
+          onSuccess={() => {
+            setShowPayFast(false)
+            closeCart()
+            window.location.href = '/payment/success'
+          }}
+          onCancel={() => {
+            setShowPayFast(false)
+            setShowPaymentOptions(true)
+          }}
+        />
+      )}
     </>
   )
 }
