@@ -10,36 +10,106 @@ export default function Home() {
     <>
       <Header />
 
-      {/* Hero Section - Margiela Style */}
-      <section className="relative bg-white min-h-screen flex items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100"></div>
+      {/* Hero Section - Enhanced with Background Image */}
+      <section className="relative bg-black min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url('/products/Nike-Shox-R4-Metallic-Silver-&-Black-R1800.JPG')",
+            filter: 'brightness(0.4) contrast(1.1)',
+          }}
+        />
         
-        <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
-          <div className="mb-8">
-            <span className="text-gray-500 text-sm tracking-widest uppercase">XCLUSIVE STEEZ</span>
+        {/* Gradient Overlays for Better Text Visibility */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50"></div>
+        
+        <div className="relative z-10 text-center max-w-6xl mx-auto px-4">
+          {/* Brand Tag */}
+          <div className="mb-8 animate-fade-in">
+            <span className="inline-block bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-2 rounded-full text-xs tracking-[0.3em] uppercase font-semibold">
+              Xclusive Steez
+            </span>
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-light mb-8 tracking-tight">
-            DECONSTRUCTED
-            <br />
-            <span className="text-gray-400">LUXURY</span>
+          {/* Main Heading with Dramatic Effect */}
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight leading-tight">
+            <span className="block text-white drop-shadow-2xl animate-slide-up">
+              DECONSTRUCTED
+            </span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-white to-gray-300 drop-shadow-2xl animate-slide-up-delay">
+              LUXURY
+            </span>
           </h1>
           
-          <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+          {/* Subtitle */}
+          <p className="text-lg md:text-xl text-gray-200 mb-12 max-w-3xl mx-auto leading-relaxed font-light animate-fade-in-delay">
             Redefining streetwear through deconstruction and reconstruction. 
-            Where raw edges meet refined craftsmanship.
+            <span className="block mt-2 text-white/90">Where raw edges meet refined craftsmanship.</span>
           </p>
           
-          <div className="space-x-4">
-            <button className="bg-black text-white px-8 py-4 text-sm tracking-wider hover:bg-gray-800 transition-colors uppercase">
-              Explore Collection
-            </button>
-            <button className="border border-black px-8 py-4 text-sm tracking-wider hover:bg-black hover:text-white transition-colors uppercase">
-              Lookbook
-            </button>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-delay-2">
+            <a 
+              href="/sneakers"
+              className="group relative px-10 py-4 bg-white text-black text-sm tracking-wider font-bold uppercase overflow-hidden transition-all duration-300 hover:scale-105"
+            >
+              <span className="relative z-10">Explore Collection</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-gray-100 to-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+            </a>
+            <a 
+              href="/new-arrivals"
+              className="group relative px-10 py-4 border-2 border-white text-white text-sm tracking-wider font-bold uppercase overflow-hidden transition-all duration-300 hover:bg-white hover:text-black"
+            >
+              <span className="relative z-10">Lookbook</span>
+            </a>
+          </div>
+
+          {/* Scroll Indicator */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+              <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
+            </div>
           </div>
         </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
       </section>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes slide-up {
+          from { 
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to { 
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in {
+          animation: fade-in 1s ease-out;
+        }
+        .animate-fade-in-delay {
+          animation: fade-in 1s ease-out 0.3s backwards;
+        }
+        .animate-fade-in-delay-2 {
+          animation: fade-in 1s ease-out 0.6s backwards;
+        }
+        .animate-slide-up {
+          animation: slide-up 0.8s ease-out;
+        }
+        .animate-slide-up-delay {
+          animation: slide-up 0.8s ease-out 0.2s backwards;
+        }
+      `}</style>
 
       {/* Minimalist Product Showcase */}
       <section className="py-20 bg-white">
