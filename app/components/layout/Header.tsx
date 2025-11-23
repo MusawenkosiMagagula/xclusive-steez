@@ -12,7 +12,6 @@ export default function Header() {
     { name: 'SNEAKERS', href: '/sneakers' },
     { name: 'iPHONES', href: '/iphones' },
     { name: 'KIDS SHOES', href: '/kids-shoes' },
-    { name: 'ACCESSORIES', href: '/accessories' },
   ]
 
   return (
