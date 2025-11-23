@@ -1,108 +1,18 @@
+'use client'
+import { useState } from 'react'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import ProductCard from '../components/product/ProductionCard'
 import WhatsAppButton from '../components/ui/WhatsAppButton'
-
-const sneakersProducts = [
-  {
-    id: 1,
-    name: 'AIR JORDAN 4 RETRO - BLACK CAT',
-    category: 'Jordan',
-    price: 1700.00,
-    image: '/products/Air Jordan 4 Retro - Black Cat R1700.WEBP',
-    isNew: true
-  },
-  {
-    id: 2,
-    name: 'NIKE DUNK LOW - BLACK & WHITE',
-    category: 'Nike',
-    price: 1500.00,
-    image: '/products/Nike Dunk Low - Black & White R1500.JPG',
-    isNew: false
-  },
-  {
-    id: 3,
-    name: 'ADIDAS SAMBA OG - BLACK & WHITE',
-    category: 'Adidas',
-    price: 1500.00,
-    image: '/products/Adidas Samba OG - Black & White R1500.JPG',
-    isNew: true
-  },
-  {
-    id: 4,
-    name: 'NEW BALANCE 550 - BLACK & WHITE',
-    category: 'New Balance',
-    price: 1500.00,
-    image: '/products/New Balance 550 - Black & White R1500.JPG',
-    isNew: false
-  },
-  {
-    id: 5,
-    name: 'AIR JORDAN 4 RETRO - BRED REIMAGINED',
-    category: 'Jordan',
-    price: 1700.00,
-    image: '/products/Air Jordan 4 Retro - Bred Reimagined R1700.JPG',
-    isNew: true
-  },
-  {
-    id: 6,
-    name: 'NIKE AIR FORCE 1 07 PANDA',
-    category: 'Nike',
-    price: 1600.00,
-    image: '/products/Nike Air Force 1 07 Panda - Black & White R1600.jpg',
-    isNew: false
-  },
-  {
-    id: 7,
-    name: 'ADIDAS GAZELLE BOLD PLATFORM - BLACK',
-    category: 'Adidas',
-    price: 1600.00,
-    image: '/products/Adidas Gazelle Bold Platform - Black Suede R1600.jpg',
-    isNew: true
-  },
-  {
-    id: 8,
-    name: 'NEW BALANCE 9060 - TRIPLE BLACK',
-    category: 'New Balance',
-    price: 1600.00,
-    image: '/products/New Balane 9060 - Triple Black R1600.JPG',
-    isNew: false
-  },
-  {
-    id: 9,
-    name: 'NIKE SHOX TL - WHITE METALLIC SILVER',
-    category: 'Nike',
-    price: 1800.00,
-    image: '/products/Nike Shox TL - White Metalic Siver R1800.JPG',
-    isNew: true
-  },
-  {
-    id: 10,
-    name: 'LACOSTE ELITE ACTIVE - BLACK & WHITE',
-    category: 'Lacoste',
-    price: 1700.00,
-    image: '/products/Lacoste Elite Active - Black & White R1700.WEBP',
-    isNew: false
-  },
-  {
-    id: 11,
-    name: 'AIR JORDAN 1 RETRO HIGH - UNIVERSITY BLUE',
-    category: 'Jordan',
-    price: 1700.00,
-    image: '/products/Air Jordan 1 Retro High  - University Blue R1700.WEBP',
-    isNew: true
-  },
-  {
-    id: 12,
-    name: 'PUMA SUEDE XL - BLACK & WHITE',
-    category: 'Puma',
-    price: 1600.00,
-    image: '/products/Puma Suede XL - Black & White R1600.WEBP',
-    isNew: false
-  }
-]
+import { allSneakers, getAllBrands, getSneakersByBrand } from '../../utils/productData'
 
 export default function SneakersPage() {
+  const [selectedBrand, setSelectedBrand] = useState<string>('All')
+  const brands = ['All', ...getAllBrands()]
+  
+  const filteredSneakers = selectedBrand === 'All' 
+    ? allSneakers 
+    : getSneakersByBrand(selectedBrand)
   return (
     <>
       <Header />
@@ -125,22 +35,26 @@ export default function SneakersPage() {
       <section className="bg-gray-50 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center space-x-4">
-              <span className="text-sm font-medium text-gray-700">Filter by:</span>
+            <div className="flex items-center space-x-2 overflow-x-auto">
+              <span className="text-sm font-medium text-gray-700">Brand:</span>
               <div className="flex space-x-2">
-                <button className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors">
-                  All Sneakers
-                </button>
-                <button className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors">
-                  New Arrivals
-                </button>
-                <button className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors">
-                  Price: Low to High
-                </button>
+                {brands.map((brand) => (
+                  <button
+                    key={brand}
+                    onClick={() => setSelectedBrand(brand)}
+                    className={`px-4 py-2 border rounded-lg text-sm transition-colors whitespace-nowrap ${
+                      selectedBrand === brand
+                        ? 'bg-black text-white border-black'
+                        : 'bg-white border-gray-300 hover:bg-gray-50'
+                    }`}
+                  >
+                    {brand}
+                  </button>
+                ))}
               </div>
             </div>
             <div className="text-sm text-gray-600">
-              Showing {sneakersProducts.length} products
+              Showing {filteredSneakers.length} products
             </div>
           </div>
         </div>
@@ -149,7 +63,7 @@ export default function SneakersPage() {
       {/* Products Grid */}
       <section className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {sneakersProducts.map((product) => (
+          {filteredSneakers.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

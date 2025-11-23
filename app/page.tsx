@@ -2,78 +2,10 @@ import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import ProductCard from './components/product/ProductionCard'
 import WhatsAppButton from './components/ui/WhatsAppButton'
-
-const featuredProducts = [
-  {
-    id: 1,
-    name: 'AIR JORDAN 4 RETRO - BLACK CAT',
-    category: 'Sneakers',
-    price: 1700.00,
-    image: '/products/Air Jordan 4 Retro - Black Cat R1700.WEBP',
-    isNew: true
-  },
-  {
-    id: 2,
-    name: 'NIKE DUNK LOW - BLACK & WHITE',
-    category: 'Sneakers',
-    price: 1500.00,
-    image: '/products/Nike Dunk Low - Black & White R1500.JPG',
-    isNew: true
-  },
-  {
-    id: 3,
-    name: 'ADIDAS SAMBA OG - BLACK & WHITE',
-    category: 'Sneakers',
-    price: 1500.00,
-    image: '/products/Adidas Samba OG - Black & White R1500.JPG',
-    isNew: false
-  },
-  {
-    id: 4,
-    name: 'NIKE AIR FORCE 1 07 PANDA',
-    category: 'Sneakers',
-    price: 1600.00,
-    image: '/products/Nike Air Force 1 07 Panda - Black & White R1600.jpg',
-    isNew: true
-  }
-]
-
-const premiumBasics = [
-  {
-    id: 5,
-    name: 'ESSENTIAL CREW NECK',
-    category: 'T-Shirts',
-    price: 599.99,
-    image: '/crew-neck.jpg',
-    isNew: true
-  },
-  {
-    id: 6,
-    name: 'WIDE-LEG TROUSERS',
-    category: 'Bottoms',
-    price: 899.99,
-    image: '/joggers.jpg',
-    isNew: true
-  },
-  {
-    id: 7,
-    name: 'MEMORY CAP',
-    category: 'Accessories',
-    price: 449.99,
-    image: '/cap.jpg',
-    isNew: false
-  },
-  {
-    id: 8,
-    name: 'RAW-EDGE HOODIE',
-    category: 'Hoodies',
-    price: 1299.99,
-    image: '/oversized-hoodie.jpg',
-    isNew: true
-  }
-]
+import { getFeaturedProducts, allSneakers } from '../utils/productData'
 
 export default function Home() {
+  const featuredProducts = getFeaturedProducts(8)
   return (
     <>
       <Header />
@@ -119,20 +51,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {featuredProducts.map((product) => (
-              <div key={product.id} className="group">
-                <div className="aspect-[3/4] bg-gray-50 mb-4 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                  <div className="h-full w-full flex items-center justify-center">
-                    <span className="text-gray-400 text-sm uppercase tracking-wider">Product View</span>
-                  </div>
-                </div>
-                
-                <div className="text-center">
-                  <h3 className="text-sm font-normal text-gray-900 mb-1 uppercase tracking-wide">{product.name}</h3>
-                  <p className="text-xs text-gray-500 mb-2 uppercase tracking-wider">{product.category}</p>
-                  <p className="text-gray-900 font-light">R {product.price.toFixed(2)}</p>
-                </div>
-              </div>
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
         </div>
@@ -178,24 +97,15 @@ export default function Home() {
             {/* Right Column - Premium Basics */}
             <div>
               <h3 className="text-2xl font-light text-gray-900 mb-6 tracking-wide">
-                PREMIUM BASICS
+                ALL SNEAKERS
               </h3>
               <p className="text-gray-600 mb-8 text-sm uppercase tracking-wider">
-                Essential pieces to build upon
+                Complete collection
               </p>
               
               <div className="grid grid-cols-2 gap-6">
-                {premiumBasics.map((product) => (
-                  <div key={product.id} className="group">
-                    <div className="aspect-square bg-gray-100 mb-3 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                      <div className="h-full w-full flex items-center justify-center">
-                        <span className="text-gray-400 text-xs uppercase">View</span>
-                      </div>
-                    </div>
-                    <h4 className="font-normal text-gray-900 text-sm uppercase tracking-wide mb-1">{product.name}</h4>
-                    <p className="text-gray-900 font-light text-sm">R {product.price.toFixed(2)}</p>
-                  </div>
+                {allSneakers.slice(0, 4).map((product) => (
+                  <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             </div>
