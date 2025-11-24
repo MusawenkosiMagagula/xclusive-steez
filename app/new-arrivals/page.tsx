@@ -9,7 +9,7 @@ const newArrivals = [
     name: 'AIR JORDAN 4 RETRO - BLACK CAT',
     category: 'Sneakers',
     price: 1700.00,
-    image: '/products/Air Jordan 4 Retro - Black Cat R1700.WEBP',
+    image: '/products/Air-Jordan-4-Retro-Black-Cat-R1700.WEBP',
     isNew: true
   },
   {
@@ -25,7 +25,7 @@ const newArrivals = [
     name: 'NIKE AIR MAX DN8 - BLACK & RED',
     category: 'Sneakers',
     price: 1800.00,
-    image: '/products/Nike Air Max Dn8 - Black&Red R1800.WEBP',
+    image: '/products/Nike Air-Max-Dn8-Black-&-Red-R1800.WEBP',
     isNew: true
   },
   {
@@ -33,7 +33,7 @@ const newArrivals = [
     name: 'ADIDAS GAZELLE BAD BUNNY - CABO ROJO',
     category: 'Sneakers',
     price: 1600.00,
-    image: '/products/Adidas Gazelle Bad Bunny - Cabo Rojo R1600.WEBP',
+    image: '/products/Adidas-Gazelle-Bad-Bunny-Cabo-Rojo-R1600.WEBP',
     isNew: true
   },
   {
@@ -41,7 +41,7 @@ const newArrivals = [
     name: 'NIKE SHOX TL SKEPTA - BLACK & RED',
     category: 'Sneakers',
     price: 1800.00,
-    image: '/products/Nike Shox TL Skepta - Black&Red R1800.WEBP',
+    image: '/products/Nike-Shox-TL-Skepta-Black-&-Red-R1800.WEBP',
     isNew: true
   },
   {
@@ -49,7 +49,7 @@ const newArrivals = [
     name: 'NEW BALANCE 9060 - CHROME BLUE',
     category: 'Sneakers',
     price: 1600.00,
-    image: '/products/New Balane 9060 - Chrome Blue R1600.WEBP',
+    image: '/products/New-Balane-9060-Chrome-Blue-R1600.WEBP',
     isNew: true
   },
   {
@@ -57,7 +57,7 @@ const newArrivals = [
     name: 'NIKE SB DUNK - JARRITOS',
     category: 'Sneakers',
     price: 1700.00,
-    image: '/products/Nike SB Dunk - Jarritos R1700.WEBP',
+    image: '/products/Nike-SB-Dunk-Jarritos-R1700.WEBP',
     isNew: true
   },
   {
@@ -65,7 +65,7 @@ const newArrivals = [
     name: 'AIR JORDAN 4 RETRO - PINK THUNDER',
     category: 'Sneakers',
     price: 1700.00,
-    image: '/products/Air Jordan 4 Retro - Pink Thunder R1700.WEBP',
+    image: '/products/Air-Jordan-4-Retro-Pink-Thunder-R1700.WEBP',
     isNew: true
   }
 ]
