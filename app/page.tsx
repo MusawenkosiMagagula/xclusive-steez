@@ -28,7 +28,7 @@ export default function Home() {
         
         <div className="relative z-10 text-center max-w-6xl mx-auto px-4">
           {/* Brand Tag */}
-          <div className="mb-8 animate-fade-in">
+          <div className="mb-8 opacity-0 animate-[fadeIn_1s_ease-out_forwards]">
             <span className="inline-block bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-2 rounded-full text-xs tracking-[0.3em] uppercase font-semibold">
               Xclusive Steez
             </span>
@@ -36,22 +36,22 @@ export default function Home() {
           
           {/* Main Heading with Dramatic Effect */}
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight leading-tight">
-            <span className="block text-white drop-shadow-2xl animate-slide-up">
+            <span className="block text-white drop-shadow-2xl opacity-0 animate-[slideUp_0.8s_ease-out_forwards]">
               DECONSTRUCTED
             </span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-white to-gray-300 drop-shadow-2xl animate-slide-up-delay">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-white to-gray-300 drop-shadow-2xl opacity-0 animate-[slideUp_0.8s_ease-out_0.2s_forwards]">
               LUXURY
             </span>
           </h1>
           
           {/* Subtitle */}
-          <p className="text-lg md:text-xl text-gray-200 mb-12 max-w-3xl mx-auto leading-relaxed font-light animate-fade-in-delay">
+          <p className="text-lg md:text-xl text-gray-200 mb-12 max-w-3xl mx-auto leading-relaxed font-light opacity-0 animate-[fadeIn_1s_ease-out_0.3s_forwards]">
             Redefining streetwear through deconstruction and reconstruction. 
             <span className="block mt-2 text-white/90">Where raw edges meet refined craftsmanship.</span>
           </p>
           
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-delay-2">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-[fadeIn_1s_ease-out_0.6s_forwards]">
             <a 
               href="/sneakers"
               className="group relative px-10 py-4 bg-white text-black text-sm tracking-wider font-bold uppercase overflow-hidden transition-all duration-300 hover:scale-105"
@@ -79,38 +79,6 @@ export default function Home() {
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
       </section>
-
-      <style jsx>{`
-        @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes slide-up {
-          from { 
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to { 
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fade-in {
-          animation: fade-in 1s ease-out;
-        }
-        .animate-fade-in-delay {
-          animation: fade-in 1s ease-out 0.3s backwards;
-        }
-        .animate-fade-in-delay-2 {
-          animation: fade-in 1s ease-out 0.6s backwards;
-        }
-        .animate-slide-up {
-          animation: slide-up 0.8s ease-out;
-        }
-        .animate-slide-up-delay {
-          animation: slide-up 0.8s ease-out 0.2s backwards;
-        }
-      `}</style>
 
       {/* Minimalist Product Showcase */}
       <section className="py-20 bg-white">
