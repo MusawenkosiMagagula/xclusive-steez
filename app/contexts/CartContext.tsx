@@ -8,6 +8,7 @@ interface Product {
   price: number
   image: string
   isNew: boolean
+  selectedSize?: string
 }
 
 interface CartItem extends Product {
@@ -20,9 +21,9 @@ interface CartState {
 }
 
 type CartAction = 
-  | { type: 'ADD_ITEM'; payload: Product }
-  | { type: 'REMOVE_ITEM'; payload: number }
-  | { type: 'UPDATE_QUANTITY'; payload: { id: number; quantity: number } }
+  | { type: 'ADD_ITEM'; payload: Product & { quantity?: number } }
+  | { type: 'REMOVE_ITEM'; payload: { id: number; selectedSize?: string } }
+  | { type: 'UPDATE_QUANTITY'; payload: { id: number; quantity: number; selectedSize?: string } }
   | { type: 'CLEAR_CART' }
   | { type: 'TOGGLE_CART' }
   | { type: 'OPEN_CART' }
@@ -31,36 +32,37 @@ type CartAction =
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
     case 'ADD_ITEM': {
-      const existingItem = state.items.find(item => item.id === action.payload.id)
-      
+      const payload = action.payload
+      const existingItem = state.items.find(item => item.id === payload.id && item.selectedSize === payload.selectedSize)
+
       if (existingItem) {
         return {
           ...state,
           items: state.items.map(item =>
-            item.id === action.payload.id
-              ? { ...item, quantity: item.quantity + 1 }
+            item.id === payload.id && item.selectedSize === payload.selectedSize
+              ? { ...item, quantity: item.quantity + (payload.quantity || 1) }
               : item
           )
         }
       }
-      
+
       return {
         ...state,
-        items: [...state.items, { ...action.payload, quantity: 1 }]
+        items: [...state.items, { ...payload, quantity: payload.quantity || 1 } as CartItem]
       }
     }
     
     case 'REMOVE_ITEM':
       return {
         ...state,
-        items: state.items.filter(item => item.id !== action.payload)
+        items: state.items.filter(item => !(item.id === action.payload.id && item.selectedSize === action.payload.selectedSize))
       }
     
     case 'UPDATE_QUANTITY':
       return {
         ...state,
         items: state.items.map(item =>
-          item.id === action.payload.id
+          item.id === action.payload.id && item.selectedSize === action.payload.selectedSize
             ? { ...item, quantity: Math.max(0, action.payload.quantity) }
             : item
         ).filter(item => item.quantity > 0)
@@ -134,12 +136,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     dispatch({ type: 'ADD_ITEM', payload: product })
   }
   
-  const removeItem = (id: number) => {
-    dispatch({ type: 'REMOVE_ITEM', payload: id })
+  const removeItem = (id: number, selectedSize?: string) => {
+    dispatch({ type: 'REMOVE_ITEM', payload: { id, selectedSize } })
   }
   
-  const updateQuantity = (id: number, quantity: number) => {
-    dispatch({ type: 'UPDATE_QUANTITY', payload: { id, quantity } })
+  const updateQuantity = (id: number, quantity: number, selectedSize?: string) => {
+    dispatch({ type: 'UPDATE_QUANTITY', payload: { id, quantity, selectedSize } })
   }
   
   const clearCart = () => {
