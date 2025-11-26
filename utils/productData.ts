@@ -158,3 +158,8 @@ export function getFeaturedProducts(count: number = 8): Product[] {
 export function getAllBrands(): string[] {
   return Array.from(new Set(allSneakers.map(p => p.brand)));
 }
+
+// Get product by id
+export function getProductById(id: number) {
+  return allSneakers.find(p => p.id === id);
+}
