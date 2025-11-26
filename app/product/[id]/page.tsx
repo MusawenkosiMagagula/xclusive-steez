@@ -2,6 +2,7 @@ import Header from '../../components/layout/Header'
 import Footer from '../../components/layout/Footer'
 import ProductDetailClient from '../ProductDetailClient'
 import { getProductById, allSneakers } from '../../../utils/productData'
+import { getRelatedProducts } from '../../../utils/recommendations'
 
 interface Props {
   params: { id: string }
@@ -13,11 +14,13 @@ export default async function ProductPage({ params }: Props) {
   const product = getProductById(id)
 
   // Prepare recommendation lists
-  const relatedProducts = allSneakers.filter((p) => p.brand === product?.brand && p.id !== product?.id).slice(0, 4)
+  const relatedProducts = product ? getRelatedProducts(product, allSneakers, 6) : []
+  // keep popular picks based on price in same category
   const popularPicks = allSneakers
     .filter((p) => p.category === product?.category && p.id !== product?.id)
     .sort((a, b) => b.price - a.price)
     .slice(0, 4)
+  // you might also like: picks from other brands for variety
   const youMightAlsoLike = allSneakers.filter((p) => p.id !== product?.id && p.brand !== product?.brand).slice(0, 4)
 
   if (!product) {
