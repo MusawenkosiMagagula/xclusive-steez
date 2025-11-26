@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { useCart } from '../contexts/CartContext'
 import type { Product } from '../../utils/productData'
 import ProductCard from '../components/product/ProductionCard'
+import { convertSize, getAvailableSizes } from '../../utils/sizeUtils'
+import { getDescription } from '../../utils/productDescriptions'
 
 interface Props {
   product: Product
@@ -17,14 +19,15 @@ export default function ProductDetailClient({ product, relatedProducts = [], pop
   const [quantity, setQuantity] = useState<number>(1)
   const { addItem, openCart } = useCart()
 
-  const sizes = ['US 6','US 7','US 8','US 9','US 10','US 11','US 12']
+  const sizes = getAvailableSizes()
 
   const handleAdd = () => {
-    addItem({ ...product, selectedSize, quantity })
+    // attach selectedSize and quantity to the cart item
+    addItem({ ...product, selectedSize, quantity } as any)
     openCart()
   }
 
-  const description = `The ${product.name} by ${product.brand} offers a premium blend of comfort and style — suitable for everyday wear and statement looks. Available in multiple sizes; choose the best fit for you.`
+  const description = getDescription(product)
 
   return (
     <div className="max-w-5xl mx-auto py-12 px-4">
@@ -51,6 +54,7 @@ export default function ProductDetailClient({ product, relatedProducts = [], pop
               ))}
             </div>
             <p className="mt-2 text-sm text-gray-500">Selected: {selectedSize}</p>
+            <p className="mt-1 text-sm text-gray-500">Conversion: EU {convertSize(selectedSize).eu} • UK {convertSize(selectedSize).uk} • SA {convertSize(selectedSize).sa}</p>
           </div>
 
           <div className="flex items-center gap-3 mb-4">
