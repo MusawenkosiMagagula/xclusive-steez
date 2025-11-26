@@ -1,5 +1,7 @@
+import Header from '../../components/layout/Header'
+import Footer from '../../components/layout/Footer'
 import ProductDetailClient from '../ProductDetailClient'
-import { getProductById } from '../../../utils/productData'
+import { getProductById, allSneakers } from '../../../utils/productData'
 
 interface Props {
   params: { id: string }
@@ -10,6 +12,14 @@ export default async function ProductPage({ params }: Props) {
   const id = parseInt(resolvedParams.id, 10)
   const product = getProductById(id)
 
+  // Prepare recommendation lists
+  const relatedProducts = allSneakers.filter((p) => p.brand === product?.brand && p.id !== product?.id).slice(0, 4)
+  const popularPicks = allSneakers
+    .filter((p) => p.category === product?.category && p.id !== product?.id)
+    .sort((a, b) => b.price - a.price)
+    .slice(0, 4)
+  const youMightAlsoLike = allSneakers.filter((p) => p.id !== product?.id && p.brand !== product?.brand).slice(0, 4)
+
   if (!product) {
     return (
       <div className="max-w-4xl mx-auto py-20 px-4 text-center">
@@ -19,6 +29,12 @@ export default async function ProductPage({ params }: Props) {
     )
   }
 
-  // Pass product object to client component for interactions (size selection, add-to-cart)
-  return <ProductDetailClient product={product} />
+  // Pass product object and recommendations to the client component for interactions
+  return (
+    <>
+      <Header />
+      <ProductDetailClient product={product} relatedProducts={relatedProducts} popularPicks={popularPicks} youMightAlsoLike={youMightAlsoLike} />
+      <Footer />
+    </>
+  )
 }

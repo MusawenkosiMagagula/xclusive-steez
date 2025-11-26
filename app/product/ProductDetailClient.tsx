@@ -3,12 +3,16 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useCart } from '../contexts/CartContext'
 import type { Product } from '../../utils/productData'
+import ProductCard from '../components/product/ProductionCard'
 
 interface Props {
   product: Product
+  relatedProducts?: Product[]
+  popularPicks?: Product[]
+  youMightAlsoLike?: Product[]
 }
 
-export default function ProductDetailClient({ product }: Props) {
+export default function ProductDetailClient({ product, relatedProducts = [], popularPicks = [], youMightAlsoLike = [] }: Props) {
   const [selectedSize, setSelectedSize] = useState('US 9')
   const [quantity, setQuantity] = useState<number>(1)
   const { addItem, openCart } = useCart()
@@ -79,6 +83,59 @@ export default function ProductDetailClient({ product }: Props) {
           </div>
         </div>
       </div>
+
+      {/* Expanded Product Information */}
+      <section className="mt-10 bg-white p-6 rounded-lg">
+        <h3 className="text-lg font-semibold mb-3">Product Information</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
+          <div>
+            <p><strong>Upper:</strong> Mixed materials (textile & synthetic)</p>
+            <p><strong>Sole:</strong> Durable rubber outsole for traction</p>
+            <p><strong>Fit:</strong> True to size — we recommend selecting your usual US size</p>
+          </div>
+          <div>
+            <p><strong>Care:</strong> Wipe clean with a damp cloth; avoid machine washing.</p>
+            <p><strong>Shipping:</strong> Dispatched within 1-2 business days. Returns accepted within 7 days.</p>
+            <p><strong>Warranty:</strong> 30-day limited warranty on manufacturing defects.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Recommendations */}
+      <section className="mt-10">
+        {relatedProducts.length > 0 && (
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-4">Related Products</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {relatedProducts.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {popularPicks.length > 0 && (
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-4">Popular Picks in This Category</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {popularPicks.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {youMightAlsoLike.length > 0 && (
+          <div className="mb-8">
+            <h3 className="text-xl font-semibold mb-4">You Might Also Like</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {youMightAlsoLike.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
     </div>
   )
 }
