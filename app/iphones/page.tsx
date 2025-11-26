@@ -1,6 +1,7 @@
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import ProductCard from '../components/product/ProductionCard'
+import { iPhoneProducts } from '../../utils/phoneData'
 import { allSneakers } from '../../utils/productData'
 import WhatsAppButton from '../components/ui/WhatsAppButton'
 
@@ -104,23 +105,8 @@ const iPhoneProducts = [
 ]
 
 // Map local iPhone stubs to canonical products if present in `allSneakers`
-const mappedIPhoneProducts = iPhoneProducts.map((item) => {
-  const nameKey = (item.name || '').toLowerCase()
-  const imageBase = item.image ? item.image.split('/').pop()?.toLowerCase() : undefined
-
-  const exactByName = allSneakers.find(p => p.name.toLowerCase() === nameKey)
-  if (exactByName) return exactByName
-
-  const includesByName = allSneakers.find(p => p.name.toLowerCase().includes(nameKey.split(' - ')[0]))
-  if (includesByName) return includesByName
-
-  if (imageBase) {
-    const byImage = allSneakers.find(p => p.image && p.image.split('/').pop()?.toLowerCase() === imageBase)
-    if (byImage) return byImage
-  }
-
-  return item
-})
+// For iPhones we keep canonical phone list from utils/phoneData
+const mappedIPhoneProducts = iPhoneProducts
 
 const phoneCategories = [
   {
@@ -237,7 +223,7 @@ export default function iPhonesPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {mappedIPhoneProducts.map((product) => (
               <div key={product.id} className="relative">
-                <ProductCard product={product} />
+                <ProductCard product={product} linkTo={`/phones/${product.id}`} />
                 {product.isNew && (
                   <div className="absolute top-3 left-3 bg-gradient-to-r from-blue-400 to-purple-500 text-white px-2 py-1 rounded-full text-xs font-semibold z-10">
                     LATEST

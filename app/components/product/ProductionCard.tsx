@@ -15,6 +15,7 @@ interface Product {
 interface ProductCardProps {
   product: Product
   highlightTokens?: string[]
+  linkTo?: string
 }
 
 export default function ProductCard({ product, highlightTokens }: ProductCardProps) {
@@ -40,10 +41,12 @@ export default function ProductCard({ product, highlightTokens }: ProductCardPro
     })
   }
 
+  const targetLink = linkTo || `/product/${product.id}`
+
   return (
     <div className="group relative bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
       <div className="aspect-square w-full overflow-hidden rounded-t-lg bg-gray-200">
-        <Link href={`/product/${product.id}`} className="block h-full w-full">
+        <Link href={targetLink} className="block h-full w-full">
           <Image
             src={product.image}
             alt={product.name}
@@ -65,7 +68,7 @@ export default function ProductCard({ product, highlightTokens }: ProductCardPro
       
       <div className="p-4">
         <h3 className="text-sm font-medium text-gray-900">
-          <Link href={`/product/${product.id}`}>{renderName(product.name, highlightTokens)}</Link>
+          <Link href={targetLink}>{renderName(product.name, highlightTokens)}</Link>
         </h3>
         <p className="mt-1 text-sm text-gray-500">{product.category}</p>
         <div className="mt-2 flex items-center justify-between">
