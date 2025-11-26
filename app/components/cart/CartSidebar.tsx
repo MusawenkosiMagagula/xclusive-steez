@@ -12,6 +12,7 @@ interface CartItem {
   price: number
   image: string
   quantity: number
+  selectedSize?: string
 }
 
 export default function CartSidebar() {
@@ -100,7 +101,7 @@ export default function CartSidebar() {
           ) : (
             <div className="p-6 space-y-4">
               {state.items.map((item) => (
-                <div key={item.id} className="flex items-center space-x-4 bg-gray-50 rounded-lg p-4">
+                <div key={`${item.id}-${item.selectedSize || ''}`} className="flex items-center space-x-4 bg-gray-50 rounded-lg p-4">
                   <div className="w-16 h-16 bg-gray-200 rounded-md overflow-hidden flex-shrink-0">
                     <Image
                       src={item.image}
@@ -122,13 +123,13 @@ export default function CartSidebar() {
                   
                   <div className="flex-1 min-w-0">
                     <h4 className="text-sm font-medium text-gray-900 truncate">{item.name}</h4>
-                    <p className="text-sm text-gray-500">{item.category}</p>
+                    <p className="text-sm text-gray-500">{item.category} {item.selectedSize && <>• <span className="font-medium">{item.selectedSize}</span></>}</p>
                     <p className="text-sm font-semibold text-gray-900">R {item.price.toFixed(2)}</p>
                   </div>
                   
                   <div className="flex items-center space-x-2">
                     <button
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      onClick={() => updateQuantity(item.id, item.quantity - 1, item.selectedSize)}
                       className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,7 +140,7 @@ export default function CartSidebar() {
                     <span className="w-8 text-center text-sm font-medium">{item.quantity}</span>
                     
                     <button
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      onClick={() => updateQuantity(item.id, item.quantity + 1, item.selectedSize)}
                       className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -148,7 +149,7 @@ export default function CartSidebar() {
                     </button>
                     
                     <button
-                      onClick={() => removeItem(item.id)}
+                      onClick={() => removeItem(item.id, item.selectedSize)}
                       className="ml-2 text-red-500 hover:text-red-700 transition-colors"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

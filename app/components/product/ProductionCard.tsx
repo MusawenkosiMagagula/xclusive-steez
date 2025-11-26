@@ -14,9 +14,10 @@ interface Product {
 
 interface ProductCardProps {
   product: Product
+  highlightTokens?: string[]
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, highlightTokens }: ProductCardProps) {
   const { addItem, openCart } = useCart()
   
   const handleAddToCart = () => {
@@ -24,6 +25,21 @@ export default function ProductCard({ product }: ProductCardProps) {
     openCart()
   }
   
+  // helper to render product name with highlighted tokens
+  const renderName = (name: string, highlights?: string[]) => {
+    if (!highlights || highlights.length === 0) return name
+    const toks = name.split(/(\s+)/)
+    return toks.map((chunk, idx) => {
+      const normalized = chunk.replace(/[^a-z0-9]/gi, '').toLowerCase()
+      if (normalized && highlights.some(h => h.toLowerCase() === normalized)) {
+        return (
+          <span key={idx} className="text-yellow-700 font-semibold">{chunk}</span>
+        )
+      }
+      return <span key={idx}>{chunk}</span>
+    })
+  }
+
   return (
     <div className="group relative bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
       <div className="aspect-square w-full overflow-hidden rounded-t-lg bg-gray-200">
@@ -49,7 +65,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       
       <div className="p-4">
         <h3 className="text-sm font-medium text-gray-900">
-          <Link href={`/product/${product.id}`}>{product.name}</Link>
+          <Link href={`/product/${product.id}`}>{renderName(product.name, highlightTokens)}</Link>
         </h3>
         <p className="mt-1 text-sm text-gray-500">{product.category}</p>
         <div className="mt-2 flex items-center justify-between">

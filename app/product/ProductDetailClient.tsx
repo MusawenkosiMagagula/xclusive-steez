@@ -6,6 +6,7 @@ import type { Product } from '../../utils/productData'
 import ProductCard from '../components/product/ProductionCard'
 import { convertSize, getAvailableSizes } from '../../utils/sizeUtils'
 import { getDescription } from '../../utils/productDescriptions'
+import { getStockForProduct } from '../../utils/stock'
 
 interface RelatedWithMatches {
   product: Product
@@ -25,9 +26,15 @@ export default function ProductDetailClient({ product, relatedProducts = [], pop
   const { addItem, openCart } = useCart()
 
   const sizes = getAvailableSizes()
+  const stockMap = getStockForProduct(product.id)
 
   const handleAdd = () => {
     // attach selectedSize and quantity to the cart item
+    const stock = stockMap[selectedSize]
+    if (stock !== undefined && stock <= 0) {
+      alert('Selected size is out of stock. Please choose another size.')
+      return
+    }
     addItem({ ...product, selectedSize, quantity } as any)
     openCart()
   }
@@ -48,15 +55,19 @@ export default function ProductDetailClient({ product, relatedProducts = [], pop
           <div className="mb-4">
             <label className="block text-sm font-medium mb-2">Select Size</label>
             <div className="flex flex-wrap gap-2">
-              {sizes.map((s) => (
-                <button
-                  key={s}
-                  onClick={() => setSelectedSize(s)}
-                  className={`px-3 py-2 border rounded ${selectedSize === s ? 'bg-black text-white' : 'bg-white'} text-sm`}
-                >
-                  {s}
-                </button>
-              ))}
+              {sizes.map((s) => {
+                const stock = stockMap[s] ?? 0
+                return (
+                  <button
+                    key={s}
+                    onClick={() => stock > 0 && setSelectedSize(s)}
+                    disabled={stock <= 0}
+                    className={`px-3 py-2 border rounded text-sm ${selectedSize === s ? 'bg-black text-white' : 'bg-white'} ${stock <= 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  >
+                    {s} {stock <= 0 ? '(Sold out)' : ''}
+                  </button>
+                )
+              })}
             </div>
             <p className="mt-2 text-sm text-gray-500">Selected: {selectedSize}</p>
             <p className="mt-1 text-sm text-gray-500">Conversion: EU {convertSize(selectedSize).eu} • UK {convertSize(selectedSize).uk} • SA {convertSize(selectedSize).sa}</p>
@@ -118,7 +129,7 @@ export default function ProductDetailClient({ product, relatedProducts = [], pop
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {relatedProducts.map((r) => (
                 <div key={r.product.id} className="relative">
-                  <ProductCard product={r.product} />
+                  <ProductCard product={r.product} highlightTokens={r.matches} />
                   {r.matches && r.matches.length > 0 && (
                     <div className="absolute top-2 left-2 bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">
                       {r.matches.slice(0,2).join(', ')}
