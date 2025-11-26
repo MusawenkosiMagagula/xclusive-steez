@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import { useCart } from '../../contexts/CartContext'
-import type { Product } from '../../../utils/productData'
+import type { Product } from '../../utils/productData'
 
 interface Props {
   product: Product

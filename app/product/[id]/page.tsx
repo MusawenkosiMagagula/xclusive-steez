@@ -1,5 +1,5 @@
 import ProductDetailClient from '../../ProductDetailClient'
-import { getProductById } from '../../../../utils/productData'
+import { getProductById } from '../../../utils/productData'
 
 interface Props {
   params: { id: string }
