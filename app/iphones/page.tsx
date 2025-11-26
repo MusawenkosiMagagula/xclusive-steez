@@ -1,6 +1,7 @@
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import ProductCard from '../components/product/ProductionCard'
+import { allSneakers } from '../../utils/productData'
 import WhatsAppButton from '../components/ui/WhatsAppButton'
 
 const iPhoneProducts = [
@@ -101,6 +102,25 @@ const iPhoneProducts = [
     isNew: false
   }
 ]
+
+// Map local iPhone stubs to canonical products if present in `allSneakers`
+const mappedIPhoneProducts = iPhoneProducts.map((item) => {
+  const nameKey = (item.name || '').toLowerCase()
+  const imageBase = item.image ? item.image.split('/').pop()?.toLowerCase() : undefined
+
+  const exactByName = allSneakers.find(p => p.name.toLowerCase() === nameKey)
+  if (exactByName) return exactByName
+
+  const includesByName = allSneakers.find(p => p.name.toLowerCase().includes(nameKey.split(' - ')[0]))
+  if (includesByName) return includesByName
+
+  if (imageBase) {
+    const byImage = allSneakers.find(p => p.image && p.image.split('/').pop()?.toLowerCase() === imageBase)
+    if (byImage) return byImage
+  }
+
+  return item
+})
 
 const phoneCategories = [
   {
@@ -215,7 +235,7 @@ export default function iPhonesPage() {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {iPhoneProducts.map((product) => (
+            {mappedIPhoneProducts.map((product) => (
               <div key={product.id} className="relative">
                 <ProductCard product={product} />
                 {product.isNew && (

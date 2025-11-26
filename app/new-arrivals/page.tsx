@@ -1,6 +1,7 @@
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import ProductCard from '../components/product/ProductionCard'
+import { allSneakers } from '../../utils/productData'
 import WhatsAppButton from '../components/ui/WhatsAppButton'
 
 const newArrivals = [
@@ -69,6 +70,25 @@ const newArrivals = [
     isNew: true
   }
 ]
+
+// Map the local stub list to the canonical products from `allSneakers` when possible
+const mappedNewArrivals = newArrivals.map((item) => {
+  const nameKey = (item.name || '').toLowerCase()
+  const imageBase = item.image ? item.image.split('/').pop()?.toLowerCase() : undefined
+
+  const exactByName = allSneakers.find(p => p.name.toLowerCase() === nameKey)
+  if (exactByName) return exactByName
+
+  const includesByName = allSneakers.find(p => p.name.toLowerCase().includes(nameKey.split(' - ')[0]))
+  if (includesByName) return includesByName
+
+  if (imageBase) {
+    const byImage = allSneakers.find(p => p.image && p.image.split('/').pop()?.toLowerCase() === imageBase)
+    if (byImage) return byImage
+  }
+
+  return item
+})
 
 export default function NewArrivalsPage() {
   return (
@@ -147,7 +167,7 @@ export default function NewArrivalsPage() {
       {/* Products Grid */}
       <section className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {newArrivals.map((product) => (
+          {mappedNewArrivals.map((product) => (
             <div key={product.id} className="relative">
               <ProductCard product={product} />
               {/* New Arrival Badge */}
