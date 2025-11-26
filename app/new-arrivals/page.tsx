@@ -90,6 +90,24 @@ const mappedNewArrivals = newArrivals.map((item) => {
   return item
 })
 
+// Deduplicate mapped results by product id (keep first occurrence)
+const uniqueMappedNewArrivals = (() => {
+  const seen = new Set<number>()
+  const out: any[] = []
+  for (const p of mappedNewArrivals) {
+    const id = (p && typeof p.id === 'number') ? p.id : undefined
+    if (id == null) {
+      out.push(p)
+      continue
+    }
+    if (!seen.has(id)) {
+      seen.add(id)
+      out.push(p)
+    }
+  }
+  return out
+})()
+
 export default function NewArrivalsPage() {
   return (
     <>
@@ -167,7 +185,7 @@ export default function NewArrivalsPage() {
       {/* Products Grid */}
       <section className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {mappedNewArrivals.map((product) => (
+          {uniqueMappedNewArrivals.map((product) => (
             <div key={product.id} className="relative">
               <ProductCard product={product} />
               {/* New Arrival Badge */}

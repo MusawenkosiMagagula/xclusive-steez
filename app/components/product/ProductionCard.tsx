@@ -18,7 +18,7 @@ interface ProductCardProps {
   linkTo?: string
 }
 
-export default function ProductCard({ product, highlightTokens }: ProductCardProps) {
+export default function ProductCard({ product, highlightTokens, linkTo }: ProductCardProps) {
   const { addItem, openCart } = useCart()
   
   const handleAddToCart = () => {
