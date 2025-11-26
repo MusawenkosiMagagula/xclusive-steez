@@ -8,49 +8,63 @@ function tokenize(name: string) {
     .filter(Boolean)
 }
 
-const STOPWORDS = new Set(['the','and','with','in','of','&','by','for','new'])
+// expanded stopwords to avoid common tokens
+const STOPWORDS = new Set([
+  'the','and','with','in','of','&','by','for','new','black','white','red','blue','grey','gray','pink','green','metallic','silver','gold'
+])
 
-export function getRelatedProducts(target: Product, allProducts: Product[], count = 4): Product[] {
+type MatchResult = { product: Product; matches: string[] }
+
+export function getRelatedProducts(target: Product, allProducts: Product[], count = 4): MatchResult[] {
   if (!target) return []
 
   const targetTokens = tokenize(target.name).filter(t => !STOPWORDS.has(t))
 
-  // Score products by number of shared tokens in name
+  // build token frequency map across all products to weight rarer tokens higher
+  const freq: Record<string, number> = {}
+  for (const p of allProducts) {
+    const tokens = Array.from(new Set(tokenize(p.name)))
+    for (const t of tokens) {
+      if (STOPWORDS.has(t)) continue
+      freq[t] = (freq[t] || 0) + 1
+    }
+  }
+
+  // Score products by weighted shared tokens (rarer tokens get higher weight)
   const scored = allProducts
     .filter(p => p.id !== target.id)
     .map(p => {
       const tokens = tokenize(p.name).filter(t => !STOPWORDS.has(t))
       const shared = tokens.filter(t => targetTokens.includes(t))
+      // weight each shared token by inverse frequency
+      const tokenWeight = shared.reduce((sum, tok) => sum + (1 / (freq[tok] || 1)), 0)
       // boost if same brand
       const brandBoost = p.brand === target.brand ? 1 : 0
-      return { product: p, score: shared.length + brandBoost }
+      // small category boost
+      const categoryBoost = p.category === target.category ? 0.3 : 0
+      return { product: p, score: tokenWeight + brandBoost + categoryBoost, matches: Array.from(new Set(shared)) }
     })
 
-  // sort by score desc, then price proximity (optional), then fallback
+  // sort by score desc
   scored.sort((a, b) => {
     if (b.score !== a.score) return b.score - a.score
-    // tie-breaker: prefer same category
-    if (a.product.category === target.category && b.product.category !== target.category) return -1
-    if (b.product.category === target.category && a.product.category !== target.category) return 1
     return a.product.id - b.product.id
   })
 
-  const topByName = scored.filter(s => s.score > 0).map(s => s.product)
+  const results: MatchResult[] = []
 
-  const results: Product[] = []
-
-  // take up to count from best name matches
-  for (const p of topByName) {
+  // push best matches first (score > 0)
+  for (const s of scored) {
     if (results.length >= count) break
-    results.push(p)
+    if (s.score > 0) results.push({ product: s.product, matches: s.matches })
   }
 
-  // If not enough, add same-brand products
+  // If not enough, add same-brand products (no matches)
   if (results.length < count) {
     for (const p of allProducts) {
       if (results.length >= count) break
       if (p.id === target.id) continue
-      if (p.brand === target.brand && !results.find(r => r.id === p.id)) results.push(p)
+      if (p.brand === target.brand && !results.find(r => r.product.id === p.id)) results.push({ product: p, matches: [] })
     }
   }
 
@@ -59,16 +73,16 @@ export function getRelatedProducts(target: Product, allProducts: Product[], coun
     for (const p of allProducts) {
       if (results.length >= count) break
       if (p.id === target.id) continue
-      if (p.category === target.category && !results.find(r => r.id === p.id)) results.push(p)
+      if (p.category === target.category && !results.find(r => r.product.id === p.id)) results.push({ product: p, matches: [] })
     }
   }
 
-  // Final fill: random other products to provide variety
+  // Final fill: add other products
   if (results.length < count) {
     for (const p of allProducts) {
       if (results.length >= count) break
       if (p.id === target.id) continue
-      if (!results.find(r => r.id === p.id)) results.push(p)
+      if (!results.find(r => r.product.id === p.id)) results.push({ product: p, matches: [] })
     }
   }
 

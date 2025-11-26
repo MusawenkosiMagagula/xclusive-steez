@@ -7,9 +7,14 @@ import ProductCard from '../components/product/ProductionCard'
 import { convertSize, getAvailableSizes } from '../../utils/sizeUtils'
 import { getDescription } from '../../utils/productDescriptions'
 
+interface RelatedWithMatches {
+  product: Product
+  matches: string[]
+}
+
 interface Props {
   product: Product
-  relatedProducts?: Product[]
+  relatedProducts?: RelatedWithMatches[]
   popularPicks?: Product[]
   youMightAlsoLike?: Product[]
 }
@@ -111,8 +116,15 @@ export default function ProductDetailClient({ product, relatedProducts = [], pop
           <div className="mb-8">
             <h3 className="text-xl font-semibold mb-4">Related Products</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-              {relatedProducts.map((p) => (
-                <ProductCard key={p.id} product={p} />
+              {relatedProducts.map((r) => (
+                <div key={r.product.id} className="relative">
+                  <ProductCard product={r.product} />
+                  {r.matches && r.matches.length > 0 && (
+                    <div className="absolute top-2 left-2 bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">
+                      {r.matches.slice(0,2).join(', ')}
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           </div>
