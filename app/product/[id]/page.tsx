@@ -1,4 +1,4 @@
-import ProductDetailClient from '../../ProductDetailClient'
+import ProductDetailClient from '../ProductDetailClient'
 import { getProductById } from '../../../utils/productData'
 
 interface Props {
