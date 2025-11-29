@@ -1,14 +1,11 @@
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import ProductCard from '../components/product/ProductionCard'
-import { iPhoneProducts } from '../../utils/phoneData'
+import { getPhoneProducts } from '../../utils/productData'
 import WhatsAppButton from '../components/ui/WhatsAppButton'
 
-// Use imported `iPhoneProducts` from `utils/phoneData`
-
-// Map local iPhone stubs to canonical products if present in `allSneakers`
-// For iPhones we keep canonical phone list from utils/phoneData
-const mappedIPhoneProducts = iPhoneProducts
+// Use canonical phone products merged into the main product list
+const mappedIPhoneProducts = getPhoneProducts()
 
 const phoneCategories = [
   {
@@ -123,16 +120,20 @@ export default function iPhonesPage() {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {mappedIPhoneProducts.map((product) => (
-              <div key={product.id} className="relative">
-                <ProductCard product={product} linkTo={`/phones/${product.id}`} />
-                {product.isNew && (
-                  <div className="absolute top-3 left-3 bg-gradient-to-r from-blue-400 to-purple-500 text-white px-2 py-1 rounded-full text-xs font-semibold z-10">
-                    LATEST
+              {mappedIPhoneProducts.map((product) => (
+                <div key={product.id} className="relative bg-white rounded-lg shadow-sm overflow-hidden">
+                  <ProductCard product={product} />
+                  <div className="p-3 border-t">
+                    <p className="text-sm text-gray-700 font-medium">{product.storage || ''} • {product.color || ''}</p>
+                    <p className="text-xs text-gray-500 mt-1">{product.condition} • {product.warrantyMonths} month warranty • {product.unlocked ? 'Unlocked' : 'Locked'}</p>
                   </div>
-                )}
-              </div>
-            ))}
+                  {product.isNew && (
+                    <div className="absolute top-3 left-3 bg-gradient-to-r from-blue-400 to-purple-500 text-white px-2 py-1 rounded-full text-xs font-semibold z-10">
+                      LATEST
+                    </div>
+                  )}
+                </div>
+              ))}
           </div>
         </div>
       </section>

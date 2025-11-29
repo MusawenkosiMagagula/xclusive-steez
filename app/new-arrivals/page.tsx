@@ -73,20 +73,36 @@ const newArrivals = [
 
 // Map the local stub list to the canonical products from `allSneakers` when possible
 const mappedNewArrivals = newArrivals.map((item) => {
-  const nameKey = (item.name || '').toLowerCase()
+  const normalize = (s?: string) => (s || '').toLowerCase().replace(/[^a-z0-9\s]/g, '').trim()
+  const nameKey = normalize(item.name)
   const imageBase = item.image ? item.image.split('/').pop()?.toLowerCase() : undefined
 
-  const exactByName = allSneakers.find(p => p.name.toLowerCase() === nameKey)
+  // 1) exact name match
+  const exactByName = allSneakers.find(p => normalize(p.name) === nameKey)
   if (exactByName) return exactByName
 
-  const includesByName = allSneakers.find(p => p.name.toLowerCase().includes(nameKey.split(' - ')[0]))
-  if (includesByName) return includesByName
-
+  // 2) exact image filename match
   if (imageBase) {
     const byImage = allSneakers.find(p => p.image && p.image.split('/').pop()?.toLowerCase() === imageBase)
     if (byImage) return byImage
   }
 
+  // 3) fuzzy token overlap: require reasonable overlap to avoid accidental matches
+  const itemTokens = nameKey.split(/\s+/).filter(Boolean)
+  if (itemTokens.length > 0) {
+    let best: { prod: any; score: number } | null = null
+    for (const p of allSneakers) {
+      const pTokens = normalize(p.name).split(/\s+/).filter(Boolean)
+      const common = pTokens.filter(t => itemTokens.includes(t))
+      const score = common.length
+      if (!best || score > best.score) best = { prod: p, score }
+    }
+    // accept only if we have at least 2 matching tokens or >=50% token overlap
+    if (best && best.score >= 2) return best.prod
+    if (best && itemTokens.length > 0 && best.score / itemTokens.length >= 0.5) return best.prod
+  }
+
+  // fallback to the original stub if no good match
   return item
 })
 

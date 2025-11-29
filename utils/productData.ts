@@ -33,6 +33,11 @@ export interface Product {
   price: number;
   image: string;
   isNew: boolean;
+  storage?: string;
+  color?: string;
+  condition?: 'Brand New' | 'Refurbished' | 'Used';
+  warrantyMonths?: number;
+  unlocked?: boolean;
 }
 
 // All sneaker products extracted from filenames
@@ -142,6 +147,49 @@ export const allSneakers: Product[] = [
   { id: 251, name: 'PUMA SUEDE XL BLUE & WHITE', brand: 'Puma', category: 'Sneakers', price: 1600, image: '/products/Puma-Suede-XL-Blue-&-White-R1600.JPG', isNew: false },
   { id: 252, name: 'PUMA SUEDE XL RED & WHITE', brand: 'Puma', category: 'Sneakers', price: 1600, image: '/products/Puma-Suede-XL-Red-&-White-R1600.WEBP', isNew: false },
 ];
+
+// Apple / Phone products (merged here so phones share the same product routing)
+// IDs for phones are in the 1000+ range to avoid colliding with sneaker IDs
+const phoneBaseId = 1000
+export const phoneProducts = [
+  { id: phoneBaseId + 0, name: 'iPhone 17 Pro Max', brand: 'Apple', category: 'Phones', price: 31000, image: '/products/iPhone-17-Pro-Max-256GB-R31000.jpeg', isNew: true, storage: '256GB', color: 'Graphite', condition: 'Brand New' as const, warrantyMonths: 12, unlocked: true },
+  { id: phoneBaseId + 1, name: 'iPhone 17 Pro', brand: 'Apple', category: 'Phones', price: 30500, image: '/products/iPhone-17-Pro-512GB-R30500.jpeg', isNew: true, storage: '512GB', color: 'Silver', condition: 'Brand New' as const, warrantyMonths: 12, unlocked: true },
+  { id: phoneBaseId + 2, name: 'iPhone 16 Pro Max', brand: 'Apple', category: 'Phones', price: 25000, image: '/products/iPhone-16-Pro-Max-256GB-R25000.JPG', isNew: true, storage: '256GB', color: 'Space Black', condition: 'Brand New' as const, warrantyMonths: 12, unlocked: true },
+  { id: phoneBaseId + 3, name: 'iPhone 16 Pro', brand: 'Apple', category: 'Phones', price: 24000, image: '/products/iPhone-16-Pro-256GB-R24000.PNG', isNew: true, storage: '256GB', color: 'Blue', condition: 'Brand New' as const, warrantyMonths: 12, unlocked: true },
+  { id: phoneBaseId + 4, name: 'iPhone 16', brand: 'Apple', category: 'Phones', price: 17000, image: '/products/iPhone-16-128GB-R17000.JPG', isNew: true, storage: '128GB', color: 'Midnight', condition: 'Brand New' as const, warrantyMonths: 12, unlocked: true },
+  { id: phoneBaseId + 5, name: 'iPhone 15 Pro Max', brand: 'Apple', category: 'Phones', price: 20000, image: '/products/iPhone-15-Pro-Max-256GB-R20000.JPG', isNew: false, storage: '256GB', color: 'Gold', condition: 'Refurbished' as const, warrantyMonths: 6, unlocked: true },
+  { id: phoneBaseId + 6, name: 'iPhone 15 Pro', brand: 'Apple', category: 'Phones', price: 17500, image: '/products/iPhone-15-Pro-256GB-R17500.JPG', isNew: false, storage: '256GB', color: 'Silver', condition: 'Refurbished' as const, warrantyMonths: 6, unlocked: true },
+  { id: phoneBaseId + 7, name: 'iPhone 15', brand: 'Apple', category: 'Phones', price: 15500, image: '/products/iPhone-15-128GB-R15500.webp', isNew: false, storage: '128GB', color: 'Black', condition: 'Refurbished' as const, warrantyMonths: 6, unlocked: true },
+  { id: phoneBaseId + 8, name: 'iPhone 14 Pro Max', brand: 'Apple', category: 'Phones', price: 17500, image: '/products/iPhone14-Pro-Max-256GB-R17500.JPG', isNew: false, storage: '256GB', color: 'Silver', condition: 'Used' as const, warrantyMonths: 3, unlocked: true },
+  { id: phoneBaseId + 9, name: 'iPhone 13 Pro Max', brand: 'Apple', category: 'Phones', price: 14500, image: '/products/iPhone-13-Pro-Max-128GB-R14500-(256GB-R15500.WEBP.JPG', isNew: false, storage: '128GB', color: 'Space Gray', condition: 'Used' as const, warrantyMonths: 3, unlocked: true },
+  { id: phoneBaseId + 10, name: 'iPhone 13 Pro', brand: 'Apple', category: 'Phones', price: 12500, image: '/products/iPhone-13 Pro-128GB-R12500.WEBP', isNew: false, storage: '128GB', color: 'Silver', condition: 'Used' as const, warrantyMonths: 3, unlocked: true },
+  { id: phoneBaseId + 11, name: 'iPhone 13', brand: 'Apple', category: 'Phones', price: 10000, image: '/products/iPhone-13-128GB-R10000.JPG', isNew: false, storage: '128GB', color: 'Black', condition: 'Used' as const, warrantyMonths: 3, unlocked: true },
+]
+
+// Merge phones into the main product list so /product/[id] works for phones
+for (const p of phoneProducts) {
+  // Push only if id doesn't already exist
+  if (!allSneakers.find(s => s.id === p.id)) {
+    allSneakers.push({
+      id: p.id,
+      name: p.name,
+      brand: p.brand,
+      category: p.category,
+      price: p.price,
+      image: p.image,
+      isNew: p.isNew,
+      storage: p.storage,
+      color: p.color,
+      condition: p.condition,
+      warrantyMonths: p.warrantyMonths,
+      unlocked: p.unlocked
+    })
+  }
+}
+
+export function getPhoneProducts() {
+  return allSneakers.filter(p => p.category === 'Phones' || p.brand === 'Apple')
+}
 
 // Get sneakers by brand
 export function getSneakersByBrand(brand: string): Product[] {

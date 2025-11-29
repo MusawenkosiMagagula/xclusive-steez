@@ -3,7 +3,9 @@ const urls = [
   process.env.BASE_URL || 'http://localhost:3000',
   (process.env.BASE_URL || 'http://localhost:3000') + '/product/1',
   (process.env.BASE_URL || 'http://localhost:3000') + '/product/4',
-  (process.env.BASE_URL || 'http://localhost:3000') + '/product/21'
+  (process.env.BASE_URL || 'http://localhost:3000') + '/product/21',
+  (process.env.BASE_URL || 'http://localhost:3000') + '/iphones',
+  (process.env.BASE_URL || 'http://localhost:3000') + '/product/1000'
 ]
 
 ;(async () => {
